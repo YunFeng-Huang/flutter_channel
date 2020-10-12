@@ -41,22 +41,24 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-        // Padding(
-        //   padding: EdgeInsets.all(20),
-        //   child: FlatButton(
-        //       color: Colors.grey,
-        //       onPressed: () {
-        //         Navigator.push(
-        //             context,
-        //             new CupertinoPageRoute<void>(
-        //                 builder: (ctx) =>
-        //                     BasicMessageChannelPage("BasicMessageChannel 实现 Flutter 与 原生双向通信")));
-        //       },
-        //       child: Text(
-        //         "BasicMessageChannel 通信",
-        //         style: TextStyle(color: Colors.white),
-        //       )),
-        // ),
+        Padding(
+          padding: EdgeInsets.all(20),
+          child: FlatButton(
+              color: Colors.grey,
+              onPressed: () {
+                Navigator.pushNamed(context, '/form',
+                    arguments: {"ceshi": 123});
+                // Navigator.push(
+                //     context,
+                //     new CupertinoPageRoute<void>(
+                //         builder: (ctx) =>
+                //             BasicMessageChannelPage("BasicMessageChannel 实现 Flutter 与 原生双向通信")));
+              },
+              child: Text(
+                "form",
+                style: TextStyle(color: Colors.white),
+              )),
+        ),
         Padding(
           padding: EdgeInsets.all(20),
           child: FlatButton(

@@ -32,6 +32,7 @@ class _MethodChannelPageState extends State<MethodChannelPage> {
   }
 
   Future<dynamic> nativeMessageListener() async {
+    // ignore: missing_return
     methodChannel.setMethodCallHandler((resultCall) {
       MethodCall call = resultCall;
       String method = call.method;
