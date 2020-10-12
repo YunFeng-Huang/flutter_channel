@@ -34,7 +34,7 @@ import io.flutter.view.FlutterView;
  * <p>
  * BasicMessageChannel （主要是传递字符串和一些半结构体的数据）
  */
-public class MainActivity extends FlutterActivity {
+public class SecondActivity extends FlutterActivity {
 	
 	private static final String CHANNEL = "samples.flutter.io/battery";
 	public static BinaryMessenger flutterView;
@@ -57,23 +57,47 @@ public class MainActivity extends FlutterActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		GeneratedPluginRegistrant.registerWith(this);
+
+
+		jumpFlutter();
 		
-		flutterView = getFlutterView();
-		mContext = this;
-		//BasicMessageChannel 通信方式
-		messageChannelFunction();
-		//MethodChannel 通信方式
-		methodChannelFunction();
-		//EventChannel 通信方式
-		eventChannelFunction();
+		// flutterView = getFlutterView();
+		// mContext = this;
+		// //BasicMessageChannel 通信方式
+		// messageChannelFunction();
+		// //MethodChannel 通信方式
+		// methodChannelFunction();
+		// //EventChannel 通信方式
+		// eventChannelFunction();
 		
-		mMyReceiver = new MyReceiver();
-		IntentFilter lIntentFilter = new IntentFilter("android.to.flutter");
-		registerReceiver(mMyReceiver, lIntentFilter);
+		// mMyReceiver = new MyReceiver();
+		// IntentFilter lIntentFilter = new IntentFilter("android.to.flutter");
+		// registerReceiver(mMyReceiver, lIntentFilter);
 		
 		
 		
 	}
+
+
+	private void jumpFlutter(){
+		 FlutterEngine flutterEngine = new FlutterEngine(this);
+        flutterEngine.getNavigationChannel().setInitialRoute("/home");
+        flutterEngine.getDartExecutor().executeDartEntrypoint(
+                DartExecutor.DartEntrypoint.createDefault()
+        );
+
+
+// 通过FlutterView引入Flutter编写的页面
+        FlutterView flutterView = new FlutterView(this);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        FrameLayout flContainer = findViewById(R.id.fl_container);
+        flContainer.addView(flutterView, lp);
+// 关键代码，将Flutter页面显示到FlutterView中
+        flutterView.attachToFlutterEngine(flutterEngine);
+	}
+
 	private void  eventChannelFunction(){
 		EventChannel lEventChannel = new EventChannel(getFlutterView(), "flutter_and_native_102");
 		lEventChannel.setStreamHandler(
